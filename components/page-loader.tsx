@@ -4,22 +4,27 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 export function PageLoader() {
-  const [show, setShow] = useState(
-    typeof sessionStorage !== "undefined" && !sessionStorage.getItem("nm-loaded"),
-  );
+  const [mounted, setMounted] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    if (!show) {
-      return;
-    }
-    sessionStorage.setItem("nm-loaded", "true");
-    const timer = window.setTimeout(() => setShow(false), 1150);
-    return () => window.clearTimeout(timer);
-  }, [show]);
+    setMounted(true);
 
-  if (!show) {
-    return null;
-  }
+    const loaded = sessionStorage.getItem("nm-loaded");
+
+    if (!loaded) {
+      setShow(true);
+      sessionStorage.setItem("nm-loaded", "true");
+
+      const timer = window.setTimeout(() => {
+        setShow(false);
+      }, 1150);
+
+      return () => window.clearTimeout(timer);
+    }
+  }, []);
+
+  if (!mounted || !show) return null;
 
   return (
     <motion.div
