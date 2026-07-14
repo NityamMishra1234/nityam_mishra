@@ -1,0 +1,21 @@
+---
+title: "What I Learned Building a Multi-Agent AI Architecture (Arkiti)"
+description: "Notes from designing Arkiti as an AI-native product instead of a single prompt wrapped in a UI."
+date: "2026-06-19"
+readTime: "4 min read"
+tags: ["AI Agents", "Architecture", "Arkiti"]
+---
+
+Arkiti pushed me to think beyond a single model call. A multi-agent architecture is useful when different parts of the product need different responsibilities, context, and decision boundaries.
+
+## Agents need jobs, not personalities
+
+The useful question is not "how many agents can we add?" It is "which responsibility deserves its own reasoning loop?" Agents should reduce complexity, not create a maze.
+
+## Coordination is the product
+
+Once multiple agents exist, orchestration becomes the real system. You need clear handoffs, shared context, failure states, and a way to inspect what happened.
+
+## The practical lesson
+
+Multi-agent systems work best when they are boring at the edges: typed inputs, predictable outputs, defensive logging, and constrained responsibilities. The intelligence can be flexible, but the interfaces around it should be stable.

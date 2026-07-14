@@ -1,0 +1,27 @@
+---
+title: "Building a Real-Time Voice AI Pipeline: STT, LLM, and TTS Working Together"
+description: "A practical breakdown of what matters when voice input, language reasoning, and speech output have to feel instant."
+date: "2026-07-01"
+readTime: "5 min read"
+tags: ["Voice AI", "FastAPI", "System Design"]
+---
+
+Real-time voice AI is less about adding three APIs together and more about protecting the flow of a conversation. The user speaks, the system transcribes, the model reasons, and the voice responds. If any step drifts, the experience stops feeling alive.
+
+## The three-part loop
+
+Speech-to-text turns audio into usable text. The LLM decides what should happen next. Text-to-speech turns the response back into a voice. The hard part is orchestration: each part has different latency, payload, retry, and streaming behavior.
+
+## Latency is a product feature
+
+For a normal web app, a slow request is annoying. For voice AI, a slow response feels like silence. I think about latency as part of the interface: partial transcription, streaming model output, and early TTS generation all help the product feel more responsive.
+
+## What I watch in production
+
+- Audio chunk size and streaming boundaries.
+- Error recovery when one provider stalls.
+- Prompt size and model response speed.
+- The handoff between LLM output and TTS playback.
+- Guardrails around private or proprietary data.
+
+The best voice systems feel simple to the user because the complexity is hidden behind disciplined infrastructure.

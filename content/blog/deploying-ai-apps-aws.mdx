@@ -1,0 +1,21 @@
+---
+title: "Deploying AI Apps on AWS: EC2, S3, and the Real-World Gotchas"
+description: "Notes on deploying AI applications when storage, compute, credentials, and provider calls all meet production."
+date: "2026-04-29"
+readTime: "5 min read"
+tags: ["AWS", "DevOps", "AI Apps"]
+---
+
+Deploying an AI app is not only about pushing code. AI products usually connect file storage, backend compute, environment secrets, third-party APIs, and user-facing latency.
+
+## EC2 gives control
+
+EC2 is useful when the backend needs long-running processes, custom runtime setup, or predictable control over the environment. The tradeoff is that you own patching, monitoring, and process management.
+
+## S3 keeps generated assets simple
+
+For products like resume generation or media workflows, S3 is a reliable place to store outputs. The important parts are access control, naming, lifecycle rules, and predictable upload flows.
+
+## Secrets and observability matter
+
+AI provider keys, logs, rate limits, and retries become part of the production surface. A deployment is only finished when you can understand what happened after something fails.
