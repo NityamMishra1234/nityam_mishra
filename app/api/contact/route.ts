@@ -49,8 +49,8 @@ export async function POST(request: Request) {
     );
   }
 
-  const smtpUser = process.env.CONTACT_EMAIL_USER;
-  const smtpPass = process.env.CONTACT_EMAIL_APP_PASSWORD;
+  const smtpUser = process.env.EMAIL_USER;
+  const smtpPass = process.env.EMAIL_PASS;
   const toEmail = process.env.CONTACT_TO_EMAIL ?? smtpUser;
   const smtpHost = process.env.CONTACT_SMTP_HOST ?? "smtp.gmail.com";
   const smtpPort = Number(process.env.CONTACT_SMTP_PORT ?? 465);
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     return Response.json(
       {
         message:
-          "Contact email is not configured. Add CONTACT_EMAIL_USER, CONTACT_EMAIL_APP_PASSWORD, and CONTACT_TO_EMAIL in .env.local.",
+          "Contact email is not configured. Add EMAIL_USER and EMAIL_PASS in .env.local.",
       },
       { status: 500 },
     );
@@ -75,28 +75,30 @@ export async function POST(request: Request) {
     },
   });
 
-  await transporter.sendMail({
-    from: `"Portfolio Contact" <${smtpUser}>`,
-    to: toEmail,
-    replyTo: email,
-    subject: `New portfolio message from ${name}`,
-    text: [
-      `Name: ${name}`,
-      `Email: ${email}`,
-      "",
-      "Message:",
-      message,
-    ].join("\n"),
-    html: `
-      <div style="font-family: Arial, sans-serif; line-height: 1.6;">
-        <h2>New portfolio message</h2>
-        <p><strong>Name:</strong> ${escapeHtml(name)}</p>
-        <p><strong>Email:</strong> ${escapeHtml(email)}</p>
-        <p><strong>Message:</strong></p>
-        <p>${escapeHtml(message).replaceAll("\n", "<br />")}</p>
-      </div>
-    `,
-  });
+  try {
+    await transporter.sendMail({
+      from: `"Portfolio Contact" <${smtpUser}>`,
+      to: toEmail,
+      replyTo: email,
+      subject: `New portfolio message from ${name}`,
+      text: [`Name: ${name}`, `Email: ${email}`, "", "Message:", message].join("\n"),
+      html: `
+        <div style="font-family: Arial, sans-serif; line-height: 1.6;">
+          <h2>New portfolio message</h2>
+          <p><strong>Name:</strong> ${escapeHtml(name)}</p>
+          <p><strong>Email:</strong> ${escapeHtml(email)}</p>
+          <p><strong>Message:</strong></p>
+          <p>${escapeHtml(message).replaceAll("\n", "<br />")}</p>
+        </div>
+      `,
+    });
+  } catch (error) {
+    console.error("Contact form email failed:", error);
+    return Response.json(
+      { message: "Could not send your message right now. Please try again shortly." },
+      { status: 502 },
+    );
+  }
 
   return Response.json({ message: "Message sent. I will get back to you soon." });
 }

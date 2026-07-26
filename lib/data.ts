@@ -22,7 +22,7 @@ export const site = {
   phone: "",
   whatsapp: "",
   socials: {
-    github: "https://github.com/NityamMishra1234",
+    github: "https://github.com/NityamKumar-scratchnest",
     linkedin: "https://www.linkedin.com/in/nityam-mishra-043295290",
     instagram: "https://www.instagram.com/i.am.nityam/",
     x: "https://x.com/nityam1111",
@@ -48,8 +48,8 @@ export const skillGroups = [
 ];
 
 export const stats = [
-  { value: "3+", label: "years building" },
-  { value: "12+", label: "products shipped" },
+  { value: "1+", label: "years building" },
+  { value: "6+", label: "products shipped" },
   { value: "3", label: "client projects" },
   { value: "20+", label: "core technologies" },
 ];
