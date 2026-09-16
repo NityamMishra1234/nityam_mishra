@@ -170,7 +170,7 @@ export const projects = [
       "Premium studio website built for a beauty and makeup industry client.",
     impact: "Elegant, conversion-focused studio presence for a client business.",
     stack: ["Next.js", "Vercel"],
-    href: "https://dollmeup.vercel.app/",
+    href: "www.dollmeupstudios.com",
     github: "",
     featured: false,
     icon: Database,
