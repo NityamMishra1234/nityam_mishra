@@ -27,7 +27,7 @@ export function AiChat({
     {
       role: "assistant",
       content:
-        "Hi, I am AskNM. Ask me about Nityam projects, AI work, stack, or availability.",
+        "Hi, I am Akriti. Ask me about Nityam projects, AI work, stack, or availability.",
     },
   ]);
   const [input, setInput] = useState("");
@@ -102,7 +102,7 @@ export function AiChat({
                 <Bot size={18} />
               </span>
               <div>
-                <p className="font-bold">AskNM</p>
+                <p className="font-bold">Akriti</p>
                 <p className="text-xs text-[var(--muted)]">Nityam&apos;s AI Assistant</p>
               </div>
             </div>
@@ -120,11 +120,10 @@ export function AiChat({
             {messages.map((message, index) => (
               <div
                 key={`${message.role}-${index}`}
-                className={`max-w-[88%] rounded-[8px] px-4 py-3 text-sm leading-6 ${
-                  message.role === "user"
-                    ? "ml-auto bg-foreground text-background"
-                    : "bg-background text-foreground"
-                }`}
+                className={`max-w-[88%] rounded-[8px] px-4 py-3 text-sm leading-6 ${message.role === "user"
+                  ? "ml-auto bg-foreground text-background"
+                  : "bg-background text-foreground"
+                  }`}
               >
                 {message.content || "Typing..."}
               </div>
